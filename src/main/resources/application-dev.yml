@@ -3,6 +3,25 @@ spring:
   config:
     activate:
       on-profile: dev
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 3
+      connection-timeout: 30000
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+  flyway:
+    enabled: false
 server:
   port: ${SERVER}
 
