@@ -1,0 +1,52 @@
+name: "Bug Report"
+description: "버그 신고"
+labels: ["bug"]
+body:
+  - type: textarea
+    attributes:
+      label: 🐛 버그 설명
+      description: 발생한 버그에 대해 설명해 주세요.
+      placeholder: |
+        발생한 문제:
+        - [ ] 
+        
+        예상 동작:
+        - [ ] 
+        
+        자세히 적을수록 좋습니다!
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: 🔄 재현 단계
+      description: 버그를 재현하는 단계를 체크박스로 작성해주세요.
+      placeholder: |
+        재현 방법:
+        - [ ] 
+        
+        환경 설정:
+        - [ ] 
+        
+        발생 조건:
+        - [ ] 
+        
+        최대한 세분화해서 적어주세요!
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: 📋 추가 정보
+      description: 로그, 스크린샷, 환경 정보 등을 작성해 주세요.
+      placeholder: |
+        에러 로그:
+        - [ ] 콘솔 에러 로그 첨부
+        
+        환경 정보:
+        - [ ] Java 17, Spring Boot 3.1.5
+        - [ ] PostgreSQL (또는 H2)
+
+        
+        관련 파일:
+        - [ ]
