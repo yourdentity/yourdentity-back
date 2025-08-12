@@ -1,0 +1,8 @@
+# spring.application.name=yourdentity-server
+# ???? : active? -> config?? PropertiyConfig? ???? ?? -> ??? yml?? ??
+spring:
+  application:
+    name: yourdentity-server
+  profiles:
+    active: dev
+

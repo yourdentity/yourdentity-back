@@ -35,3 +35,9 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### env파일 ###
+#실제 개발들어가는 경우 해당 설정파일 주석 해제
+#*.env-dev.properties
+#*.env-prod.properties
+#*.env-test.properties

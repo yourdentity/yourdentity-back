@@ -1,0 +1,16 @@
+[2025-08-12 23:49:35:119493][restartedMain] INFO  c.y.y.s.YourdentityServerApplication[53] - Starting YourdentityServerApplication using Java 17.0.13 with PID 43388 (C:\intellij_workspace\yourdentity-back\build\classes\java\main started by USER in C:\intellij_workspace\yourdentity-back)
+[2025-08-12 23:49:35:119494][restartedMain] DEBUG c.y.y.s.YourdentityServerApplication[54] - Running with Spring Boot v3.5.5-SNAPSHOT, Spring v6.2.10-SNAPSHOT
+[2025-08-12 23:49:35:119494][restartedMain] INFO  c.y.y.s.YourdentityServerApplication[658] - The following 1 profile is active: "dev"
+[2025-08-12 23:49:36:119976][restartedMain] INFO  c.y.y.s.YourdentityServerApplication[59] - Started YourdentityServerApplication in 0.508 seconds (process running for 120.354)
+[2025-08-12 23:49:36:120021][http-nio-8091-exec-1] INFO  c.y.y.s.t.controller.testController[16] - debugger
+[2025-08-12 23:49:42:126416][http-nio-8091-exec-2] INFO  c.y.y.s.t.controller.testController[16] - debugger
+[2025-08-12 23:49:44:128011][http-nio-8091-exec-4] INFO  c.y.y.s.t.controller.testController[16] - debugger
+[2025-08-12 23:49:45:128620][http-nio-8091-exec-3] INFO  c.y.y.s.t.controller.testController[16] - debugger
+[2025-08-12 23:49:45:128799][http-nio-8091-exec-5] INFO  c.y.y.s.t.controller.testController[16] - debugger
+[2025-08-12 23:49:45:129560][http-nio-8091-exec-6] INFO  c.y.y.s.t.controller.testController[16] - debugger
+[2025-08-12 23:49:51:135057][http-nio-8091-exec-7] INFO  c.y.y.s.t.controller.testController[16] - debugger
+[2025-08-12 23:49:58:819][restartedMain] INFO  c.y.y.s.YourdentityServerApplication[53] - Starting YourdentityServerApplication using Java 17.0.13 with PID 29564 (C:\intellij_workspace\yourdentity-back\build\classes\java\main started by USER in C:\intellij_workspace\yourdentity-back)
+[2025-08-12 23:49:58:821][restartedMain] DEBUG c.y.y.s.YourdentityServerApplication[54] - Running with Spring Boot v3.5.5-SNAPSHOT, Spring v6.2.10-SNAPSHOT
+[2025-08-12 23:49:58:821][restartedMain] INFO  c.y.y.s.YourdentityServerApplication[658] - The following 1 profile is active: "dev"
+[2025-08-12 23:50:01:3974][restartedMain] INFO  c.y.y.s.YourdentityServerApplication[59] - Started YourdentityServerApplication in 3.73 seconds (process running for 4.348)
+[2025-08-12 23:50:03:5076][http-nio-8091-exec-1] INFO  c.y.y.s.t.controller.testController[16] - debugger

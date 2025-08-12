@@ -1,0 +1,8 @@
+# 개발환경(로컬)
+spring:
+  config:
+    activate:
+      on-profile: dev
+server:
+  port: ${SERVER}
+

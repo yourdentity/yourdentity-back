@@ -1,0 +1,7 @@
+# 테스트 환경
+spring:
+  config:
+    activate:
+      on-profile: test
+server:
+  port: ${SERVER}

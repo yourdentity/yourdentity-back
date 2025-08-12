@@ -1,0 +1,7 @@
+# 운영환경
+spring:
+  config:
+    activate:
+      on-profile: prod
+server:
+  port: ${SERVER}
