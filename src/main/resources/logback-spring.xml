@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- Spring Boot의 기본 콘솔 설정을 포함 -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+
+    <!-- Spring Boot 프로퍼티 참조를 위해 <springProperty> 추가 -->
+    <springProperty scope="context" name="spring.log.file-path" source="spring.log.file-path" defaultValue="logs/application.log"/>
+
+
+    <!--
+       [로그 패턴]
+       1. yyyy_MM_dd... : 현재 일시
+       2. %relative : 서버가 시작된 이후의 밀리초
+       3. %level : 로그 레벨
+       4. %thread : 사용 쓰레드
+       5. %logger : 사용 로거
+       6. %msg : 로깅 메시지
+   -->
+
+    <!--환경별 로그 파일 저장 위치-->
+    <!-- 프로젝트 내부에 로그를 남기는 경우 비효율적 -> 각 환경에 맞게 공통으로 사용할 외부 경로를 지정해서 변경필요! -->
+    <springProfile name="dev">
+        <property name="LOGS_PATH" value="./logs/dev"/>
+    </springProfile>
+    <springProfile name="prod">
+        <property name="LOGS_PATH" value="./logs/prod"/>
+    </springProfile>
+    <springProfile name="test">
+        <property name="LOGS_PATH" value="./logs/test"/>
+    </springProfile>
+
+    <!--dev 프로필 환경-->
+    <springProfile name="dev">
+        <property name="FILE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" />
+
+        <!-- File 에 로그 출력 세팅 -->
+        <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <!-- 출력패턴 설정-->
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <charset>UTF-8</charset>
+                <pattern>${FILE_LOG_PATTERN}</pattern>
+                <ImmediateFlush>true</ImmediateFlush>
+            </encoder>
+
+            <!-- Rolling 정책 : 로그 보관 정책 -->
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <!-- 로그 백업 파일 경로 설정 -->
+                <!-- .gz,.zip 등을 넣으면 자동 일자별 로그파일 압축 -->
+                <fileNamePattern>${LOGS_PATH}/local_%d{yyyy_MM_dd}(%i).log</fileNamePattern>
+                <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFileNamingAndTriggeringPolicy">
+                    <!-- 파일당 최고 용량 KB, MB, GB -->
+                    <!-- 아래 용량을 넘으면 파일 분할-->
+                    <maxFileSize>10MB</maxFileSize>
+                </timeBasedFileNamingAndTriggeringPolicy>
+                <!-- 일자별 로그파일 최대 보관주기(~일), 해당 설정일 이상된 파일은 자동으로 제거-->
+                <maxHistory>30</maxHistory>
+            </rollingPolicy>
+        </appender>
+
+        <root level="INFO">
+            <appender-ref ref="CONSOLE" />
+            <appender-ref ref="FILE" />
+        </root>
+    </springProfile>
+
+    <!--prod 프로필 환경-->
+    <springProfile name="prod">
+        <property name="FILE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" />
+
+        <!-- File 에 로그 출력 세팅 -->
+        <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <!-- 출력패턴 설정-->
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <charset>UTF-8</charset>
+                <pattern>${FILE_LOG_PATTERN}</pattern>
+                <ImmediateFlush>true</ImmediateFlush>
+            </encoder>
+
+            <!-- Rolling 정책 : 로그 보관 정책 -->
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <!-- 로그 백업 파일 경로 설정 -->
+                <!-- .gz,.zip 등을 넣으면 자동 일자별 로그파일 압축 -->
+                <fileNamePattern>${LOGS_PATH}/local_%d{yyyy_MM_dd}(%i).log</fileNamePattern>
+                <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFileNamingAndTriggeringPolicy">
+                    <!-- 파일당 최고 용량 KB, MB, GB -->
+                    <!-- 아래 용량을 넘으면 파일 분할-->
+                    <maxFileSize>10MB</maxFileSize>
+                </timeBasedFileNamingAndTriggeringPolicy>
+                <!-- 일자별 로그파일 최대 보관주기(~일), 해당 설정일 이상된 파일은 자동으로 제거-->
+                <maxHistory>30</maxHistory>
+            </rollingPolicy>
+        </appender>
+
+        <root level="INFO">
+            <appender-ref ref="CONSOLE" />
+            <appender-ref ref="FILE" />
+        </root>
+    </springProfile>
+
+    <!--test 프로필 환경-->
+    <springProfile name="test">
+        <property name="FILE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" />
+
+        <!-- File 에 로그 출력 세팅 -->
+        <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <!-- 출력패턴 설정-->
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <charset>UTF-8</charset>
+                <pattern>${FILE_LOG_PATTERN}</pattern>
+                <ImmediateFlush>true</ImmediateFlush>
+            </encoder>
+
+            <!-- Rolling 정책 : 로그 보관 정책 -->
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <!-- 로그 백업 파일 경로 설정 -->
+                <!-- .gz,.zip 등을 넣으면 자동 일자별 로그파일 압축 -->
+                <fileNamePattern>${LOGS_PATH}/local_%d{yyyy_MM_dd}(%i).log</fileNamePattern>
+                <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFileNamingAndTriggeringPolicy">
+                    <!-- 파일당 최고 용량 KB, MB, GB -->
+                    <!-- 아래 용량을 넘으면 파일 분할-->
+                    <maxFileSize>10MB</maxFileSize>
+                </timeBasedFileNamingAndTriggeringPolicy>
+                <!-- 일자별 로그파일 최대 보관주기(~일), 해당 설정일 이상된 파일은 자동으로 제거-->
+                <maxHistory>30</maxHistory>
+            </rollingPolicy>
+        </appender>
+
+        <root level="INFO">
+            <appender-ref ref="CONSOLE" />
+            <appender-ref ref="FILE" />
+        </root>
+    </springProfile>
+
+</configuration>

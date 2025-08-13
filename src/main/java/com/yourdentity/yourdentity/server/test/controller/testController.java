@@ -14,9 +14,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class testController {
 
+    private final Logger log = LoggerFactory.getLogger(getClass());
+
     private final TestEntityService testEntityService;
     @RequestMapping("/test")
     public String test(){
+        log.info("로그테스트");
+        log.error("로그테스트 err");
         return "test";
     }
 
