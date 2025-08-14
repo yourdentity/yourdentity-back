@@ -60,7 +60,8 @@
 
         <root level="INFO">
             <appender-ref ref="CONSOLE" />
-            <appender-ref ref="FILE" />
+            <!-- 파일 저장 사용X -->
+            <!-- <appender-ref ref="FILE" />-->
         </root>
     </springProfile>
 
@@ -94,7 +95,7 @@
 
         <root level="INFO">
             <appender-ref ref="CONSOLE" />
-            <appender-ref ref="FILE" />
+            <!--<appender-ref ref="FILE" />-->
         </root>
     </springProfile>
 
@@ -128,7 +129,7 @@
 
         <root level="INFO">
             <appender-ref ref="CONSOLE" />
-            <appender-ref ref="FILE" />
+            <!--<appender-ref ref="FILE" />-->
         </root>
     </springProfile>
 
