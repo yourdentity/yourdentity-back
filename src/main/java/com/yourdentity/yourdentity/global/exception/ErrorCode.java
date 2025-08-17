@@ -29,7 +29,10 @@ public enum ErrorCode {
 
 	// 요청 제한/오류 관련
 	TOO_MANY_REQUESTS(HttpStatus.TOO_MANY_REQUESTS, "AUTH-017", "너무 많은 요청이 발생했습니다. 잠시 후 다시 시도해주세요."),
-	INVALID_PARAMETER(HttpStatus.BAD_REQUEST, "AUTH-018", "잘못된 파라미터가 전달되었습니다.");
+	INVALID_PARAMETER(HttpStatus.BAD_REQUEST, "AUTH-018", "잘못된 파라미터가 전달되었습니다."),
+
+	// 스토어 모듈 관련
+	PRODUCT_NOT_FOUND(HttpStatus.NOT_FOUND, "STORE_001", "상품을 찾을 수 없습니다.");
 
 	// TODO: 추후 인증 기능 구현 시 주석 해제
 	/*
@@ -55,6 +58,7 @@ public enum ErrorCode {
 	PENDING_APPROVAL(HttpStatus.BAD_REQUEST, "AUTH-020", "가입 승인 대기중입니다."),
 	APPROVAL_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "AUTH-021", "사용자 승인에 실패했습니다.");
 	*/
+
 
 	private final HttpStatus status;
 	private final String code;

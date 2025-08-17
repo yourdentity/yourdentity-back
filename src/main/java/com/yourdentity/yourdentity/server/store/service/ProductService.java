@@ -1,5 +1,7 @@
 package com.yourdentity.yourdentity.server.store.service;
 
+import com.yourdentity.yourdentity.global.exception.BusinessBaseException;
+import com.yourdentity.yourdentity.global.exception.ErrorCode;
 import com.yourdentity.yourdentity.server.store.dto.response.ProductListResponse;
 import com.yourdentity.yourdentity.server.store.dto.response.ProductResponse;
 import com.yourdentity.yourdentity.server.store.entity.Product;
@@ -27,13 +29,17 @@ public class ProductService
     public List<ProductListResponse> findAllProducts()
     {
         List<Product> products = productRepository.findAllWithFetch();
+        if(products.isEmpty())
+        {
+            throw new BusinessBaseException(ErrorCode.PRODUCT_NOT_FOUND);
+        }
         return productListMapper.toListResponses(products);
     }
 
     public ProductResponse findProductById(long productId)
     {
         Product product = productRepository.findByIdWithFetch(productId)
-                .orElseThrow(() -> new EntityNotFoundException("Product not found"));
+                .orElseThrow(() -> new BusinessBaseException(ErrorCode.PRODUCT_NOT_FOUND));
 
         List<ProductQuestion> questions = productRepository.findQuestionsByProductId(productId);
         List<ProductReview> reviews = productRepository.findReviewsByProductId(productId);
