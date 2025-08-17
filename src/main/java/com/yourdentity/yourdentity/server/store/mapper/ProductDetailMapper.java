@@ -33,6 +33,7 @@ public interface ProductDetailMapper
     @Mapping(target = "questions",source = "questions")
     ProductResponse toResponse(Product product);
 
+    @Mapping(target = "optionId", source = "id")
     @Mapping(target = "optionName", source = "optionType.name")
     @Mapping(target = "optionValue", source = "value")
     @Mapping(target = "optionImageUrl", source = "imageUrl")
