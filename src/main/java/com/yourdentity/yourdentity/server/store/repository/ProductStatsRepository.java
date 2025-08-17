@@ -14,4 +14,9 @@ public interface ProductStatsRepository extends JpaRepository<ProductStats, Long
     @Transactional
     @Query("UPDATE ProductStats p SET p.viewCount = p.viewCount + 1 WHERE p.product.id = :productId")
     void increaseViewCount(@Param("productId") Long productId);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE ProductStats p SET p.applyCount = p.applyCount + 1 WHERE p.product.id = :productId")
+    void increaseApplyCount(@Param("productId") Long productId);
 }
