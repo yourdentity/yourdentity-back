@@ -32,7 +32,9 @@ public enum ErrorCode {
 	INVALID_PARAMETER(HttpStatus.BAD_REQUEST, "AUTH-018", "잘못된 파라미터가 전달되었습니다."),
 
 	// 스토어 모듈 관련
-	PRODUCT_NOT_FOUND(HttpStatus.NOT_FOUND, "STORE_001", "상품을 찾을 수 없습니다.");
+	PRODUCT_NOT_FOUND(HttpStatus.NOT_FOUND, "STORE_001", "상품을 찾을 수 없습니다."),
+	INSUFFICIENT_STOCK(HttpStatus.BAD_REQUEST, "STORE_002", "상품 재고가 부족합니다.");
+
 
 	// TODO: 추후 인증 기능 구현 시 주석 해제
 	/*
