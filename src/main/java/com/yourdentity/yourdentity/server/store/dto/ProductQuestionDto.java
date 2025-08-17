@@ -6,6 +6,7 @@ public record ProductQuestionDto(
         Long questionId,
         Long userId,
         String content,
+        String answer,
         List<String> imageUrls,
         List<String> fileUrls
 ) {
