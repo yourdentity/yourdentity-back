@@ -6,6 +6,7 @@ import com.yourdentity.yourdentity.server.store.dto.response.ProductResponse;
 import com.yourdentity.yourdentity.server.store.entity.Product;
 import com.yourdentity.yourdentity.server.store.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,16 +19,17 @@ public class ProductController
     private final ProductService productService;
 
     @GetMapping("/products")
-    public List<ProductListResponse> getProducts()
+    public ResponseEntity<List<ProductListResponse>> getProducts()
     {
-        return productService.findAllProducts();
+        return ResponseEntity.ok(productService.findAllProducts());
     }
 
     @GetMapping("/products/{productId}")
-    public ProductResponse getProduct(
+    public ResponseEntity<ProductResponse> getProduct(
             @PathVariable Long productId
     )
     {
-        return productService.findProductById(productId);
+        return ResponseEntity.ok(productService.findProductById(productId));
     }
+
 }
