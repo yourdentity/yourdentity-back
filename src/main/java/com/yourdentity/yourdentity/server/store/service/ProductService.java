@@ -11,7 +11,9 @@ import com.yourdentity.yourdentity.server.store.entity.ProductReview;
 import com.yourdentity.yourdentity.server.store.mapper.ProductDetailMapper;
 import com.yourdentity.yourdentity.server.store.mapper.ProductListMapper;
 import com.yourdentity.yourdentity.server.store.repository.ProductRepository;
+import com.yourdentity.yourdentity.server.store.repository.ProductStatsRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,7 @@ import java.util.List;
 public class ProductService
 {
     private final ProductRepository productRepository;
+    private final ProductStatsRepository productStatsRepository;
 
     private final ProductListMapper productListMapper;
     private final ProductDetailMapper productDetailMapper;
@@ -46,7 +49,13 @@ public class ProductService
         product.setQuestions(questions);
         product.setReviews(reviews);
 
+        increaseViewCount(productId);
 
         return productDetailMapper.toResponse(product);
     }
+    @Transactional
+    public void increaseViewCount(Long productId) {
+        productStatsRepository.increaseViewCount(productId);
+    }
+
 }
