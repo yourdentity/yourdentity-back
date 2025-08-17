@@ -23,7 +23,7 @@ public class ProductController
         return productService.findAllProducts();
     }
 
-    @GetMapping("/product/{productId}")
+    @GetMapping("/products/{productId}")
     public ProductResponse getProduct(
             @PathVariable Long productId
     )
