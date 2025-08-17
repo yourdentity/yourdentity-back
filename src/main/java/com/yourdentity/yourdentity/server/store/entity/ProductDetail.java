@@ -16,6 +16,7 @@ public class ProductDetail {
     private Long id;
 
     private String title;
+    @Column(columnDefinition = "TEXT")
     private String content;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")

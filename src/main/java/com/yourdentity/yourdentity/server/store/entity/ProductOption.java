@@ -16,6 +16,7 @@ public class ProductOption {
     private Long id;
 
     private String value;
+    @Column(columnDefinition = "TEXT")
     private String imageUrl;
     private Long stock;
 

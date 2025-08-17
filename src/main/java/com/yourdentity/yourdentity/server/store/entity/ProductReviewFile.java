@@ -16,6 +16,7 @@ public class ProductReviewFile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(columnDefinition = "TEXT")
     private String fileUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
