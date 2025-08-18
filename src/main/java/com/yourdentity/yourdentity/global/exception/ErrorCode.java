@@ -33,8 +33,9 @@ public enum ErrorCode {
 
 	// 스토어 모듈 관련
 	PRODUCT_NOT_FOUND(HttpStatus.NOT_FOUND, "STORE_001", "상품을 찾을 수 없습니다."),
-	INSUFFICIENT_STOCK(HttpStatus.BAD_REQUEST, "STORE_002", "상품 재고가 부족합니다.");
-
+	INSUFFICIENT_STOCK(HttpStatus.BAD_REQUEST, "STORE_002", "상품 재고가 부족합니다."),
+	INSUFFICIENT_POINT(HttpStatus.BAD_REQUEST, "STORE_002", "시용자 포인트가 부족합니다."),
+	OPTION_NOT_FOUND(HttpStatus.NOT_FOUND, "STORE_003", "상품에 해당 옵션이 존재하지 않습니다.");
 
 	// TODO: 추후 인증 기능 구현 시 주석 해제
 	/*
