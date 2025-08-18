@@ -24,6 +24,10 @@ public class Exchange extends BaseTimeEntity {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "option_id", nullable = false)
+    private ProductOption option;
+
     private Long quantity;
 
     @Enumerated(EnumType.STRING)

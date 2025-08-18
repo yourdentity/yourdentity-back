@@ -8,6 +8,7 @@ import com.yourdentity.yourdentity.server.store.dto.response.ExchangeResponse;
 import com.yourdentity.yourdentity.server.store.entity.Exchange;
 import com.yourdentity.yourdentity.server.store.entity.ExchangeStatus;
 import com.yourdentity.yourdentity.server.store.entity.Product;
+import com.yourdentity.yourdentity.server.store.entity.ProductOption;
 import com.yourdentity.yourdentity.server.store.repository.ExchangeRepository;
 import com.yourdentity.yourdentity.server.store.repository.ProductOptionRepository;
 import com.yourdentity.yourdentity.server.store.repository.ProductRepository;
@@ -59,9 +60,17 @@ public class ExchangeService
 
             Product product = productRepository.findByIdWithFetch(productId)
                     .orElseThrow(() -> new BusinessBaseException(ErrorCode.PRODUCT_NOT_FOUND));
+            ProductOption option = product.getOptions().stream()
+                    .filter(o -> o.getId().equals(optionId))
+                    .findFirst()
+                    .orElseThrow(() -> new BusinessBaseException(ErrorCode.OPTION_NOT_FOUND));
+
+
+
             Exchange exchange = Exchange.builder()
                     .userId(1L)// 임시 유저 ID
                     .product(product)
+                    .option(option)
                     .quantity(quantity)
                     .status(ExchangeStatus.REQUESTED)
                     .build();

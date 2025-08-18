@@ -8,6 +8,7 @@ import lombok.Builder;
 public record ExchangeResponse(
         Long exchangeId,
         Long productId,
+        Long optionId,
         Long quantity,
         ExchangeStatus exchangeStatus
 ) {
@@ -16,6 +17,7 @@ public record ExchangeResponse(
                 .exchangeId(exchange.getId())
                 .productId(exchange.getProduct().getId())
                 .quantity(exchange.getQuantity())
+                .optionId(exchange.getOption().getId())
                 .exchangeStatus(exchange.getStatus())
                 .build();
     }
