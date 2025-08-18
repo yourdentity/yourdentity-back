@@ -37,7 +37,7 @@ public class ExchangeService
                 .mapToLong(r->{
                     Product product=productRepository.findByIdWithFetch(r.productId())
                             .orElseThrow(()->new BusinessBaseException(ErrorCode.PRODUCT_NOT_FOUND));
-                    return product.getPrice();
+                    return product.getPrice() * r.quantity();
                 })
                 .sum();
         if (userPrice < totalPrice) {
