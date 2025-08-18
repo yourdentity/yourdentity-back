@@ -32,6 +32,18 @@ public class ExchangeService
     @Transactional
     public List<ExchangeResponse> createExchange(@RequestBody ExchangeRequest exchangeRequest)
     {
+        Long userPrice=500L;
+        Long totalPrice = exchangeRequest.items().stream()
+                .mapToLong(r->{
+                    Product product=productRepository.findByIdWithFetch(r.productId())
+                            .orElseThrow(()->new BusinessBaseException(ErrorCode.PRODUCT_NOT_FOUND));
+                    return product.getPrice();
+                })
+                .sum();
+        if (userPrice < totalPrice) {
+            throw new BusinessBaseException(ErrorCode.INSUFFICIENT_POINT);
+        }
+
         List<ExchangeResponse> responses = new ArrayList<>();
 
         List<ExchangeItemRequest> items= exchangeRequest.items();
