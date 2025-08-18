@@ -18,6 +18,8 @@ public class ProductStats
 
     private Long viewCount;
     private Long applyCount;
+    private Long reviewCount;
+    private Long questionCount;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")

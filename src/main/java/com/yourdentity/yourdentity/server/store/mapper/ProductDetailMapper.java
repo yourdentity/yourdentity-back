@@ -26,6 +26,8 @@ public interface ProductDetailMapper
     @Mapping(target = "tagName", source = "tag.tagName")
     @Mapping(target = "viewCount", source = "stats.viewCount")
     @Mapping(target = "applyCount", source = "stats.applyCount")
+    @Mapping(target = "reviewCount", source = "stats.reviewCount")
+    @Mapping(target = "questionCount", source = "stats.questionCount")
     @Mapping(target = "detailedTitle", source = "detail.title")
     @Mapping(target = "detailedContent", source = "detail.content")
     @Mapping(target = "productOptions", source = "options")
