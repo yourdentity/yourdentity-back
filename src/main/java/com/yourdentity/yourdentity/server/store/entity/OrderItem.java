@@ -1,24 +1,24 @@
 package com.yourdentity.yourdentity.server.store.entity;
 
 
-import com.yourdentity.yourdentity.global.common.base.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "product_exchange")
+@Table(name = "order_item")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-//TODO: 유저 엔티티 연결 필요
-public class Exchange extends BaseTimeEntity {
+public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
@@ -30,7 +30,13 @@ public class Exchange extends BaseTimeEntity {
 
     private Long quantity;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
-    private ExchangeStatus status;
+    public static OrderItem of(Order order, Product product, ProductOption option, Long quantity) {
+        return OrderItem.builder()
+                .order(order)
+                .product(product)
+                .option(option)
+                .quantity(quantity)
+                .build();
+    }
+
 }

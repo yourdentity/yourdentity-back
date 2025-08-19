@@ -1,6 +1,6 @@
 package com.yourdentity.yourdentity.server.store.entity;
 
-public enum ExchangeStatus
+public enum OrderStatus
 {
     REQUESTED,
     COMPLETED
