@@ -18,4 +18,8 @@ public interface ProductOptionRepository extends JpaRepository<ProductOption, Lo
             "WHERE p.id = :id AND p.stock >= :quantity")
     int decreaseStock(@Param("id") Long id, @Param("quantity") Long quantity);
 
+    @Query("SELECT CASE WHEN p.stock >= :quantity THEN true ELSE false END " +
+            "FROM ProductOption p WHERE p.id = :id")
+    boolean hasEnoughStock(@Param("id") Long id, @Param("quantity") Long quantity);
+
 }
