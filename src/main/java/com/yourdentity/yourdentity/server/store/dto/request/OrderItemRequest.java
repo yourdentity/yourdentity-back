@@ -1,6 +1,6 @@
 package com.yourdentity.yourdentity.server.store.dto.request;
 
-public record ExchangeItemRequest(
+public record OrderItemRequest(
         Long productId,
         Long optionId,
         Long quantity
