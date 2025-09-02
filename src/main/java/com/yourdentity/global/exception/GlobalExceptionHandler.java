@@ -1,4 +1,4 @@
-package com.yourdentity.yourdentity.global.exception;
+package com.yourdentity.global.exception;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,6 +11,8 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
+
+import com.yourdentity.global.response.ApiResponse;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,11 +29,14 @@ public class GlobalExceptionHandler {
 	 * BusinessBaseException과 그 하위 예외들을 처리하여 적절한 에러 응답을 생성
 	 */
 	@ExceptionHandler(BusinessBaseException.class)
-	protected ResponseEntity<ErrorResponse> handleBusinessException(BusinessBaseException e) {
+	protected ResponseEntity<ApiResponse<?>> handleBusinessException(BusinessBaseException e) {
 		log.error("Business exception occurred: {}", e.getMessage(), e);
-		ErrorResponse errorResponse = ErrorResponse.of(e.getErrorCode());
 		return ResponseEntity.status(e.getErrorCode().getStatus())
-				.body(errorResponse);
+			.body(ApiResponse.onFailure(
+				e.getErrorCode().getCode(),
+				e.getErrorCode().getMessage(),
+				null
+			));
 	}
 
 	/**
@@ -39,42 +44,51 @@ public class GlobalExceptionHandler {
 	 * @Valid 어노테이션으로 검증 실패 시 발생하는 예외를 처리
 	 */
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	protected ResponseEntity<ErrorResponse> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
+	protected ResponseEntity<ApiResponse<?>> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
 		List<ValidationError> validationErrors = ex.getBindingResult()
-				.getFieldErrors()
-				.stream()
-				.map(error -> ValidationError.of(
-						error.getField(),
-						error.getDefaultMessage()))
-				.collect(Collectors.toList());
+			.getFieldErrors()
+			.stream()
+			.map(error -> ValidationError.of(
+				error.getField(),
+				error.getDefaultMessage()))
+			.collect(Collectors.toList());
 
 		log.warn("Validation failed: {}", validationErrors);
-		ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.INVALID_INPUT, validationErrors);
 		return ResponseEntity.status(ErrorCode.INVALID_INPUT.getStatus())
-				.body(errorResponse);
+			.body(ApiResponse.onFailure(
+				ErrorCode.INVALID_INPUT.getCode(),
+				ErrorCode.INVALID_INPUT.getMessage(),
+				validationErrors
+			));
 	}
 
 	/**
 	 * 요청한 리소스를 찾을 수 없을 때 발생하는 예외 처리
 	 */
 	@ExceptionHandler(NoResourceFoundException.class)
-	protected ResponseEntity<ErrorResponse> handleNoResourceFoundException(NoResourceFoundException e) {
+	protected ResponseEntity<ApiResponse<?>> handleNoResourceFoundException(NoResourceFoundException e) {
 		log.warn("Resource not found: {}", e.getMessage());
-		ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.NOT_FOUND);
 		return ResponseEntity.status(ErrorCode.NOT_FOUND.getStatus())
-				.body(errorResponse);
+			.body(ApiResponse.onFailure(
+				ErrorCode.NOT_FOUND.getCode(),
+				ErrorCode.NOT_FOUND.getMessage(),
+				null
+			));
 	}
 
 	/**
 	 * 지원하지 않는 HTTP 메서드 호출 시 발생하는 예외 처리
 	 */
 	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-	protected ResponseEntity<ErrorResponse> handleHttpRequestMethodNotSupported(
-			HttpRequestMethodNotSupportedException e) {
+	protected ResponseEntity<ApiResponse<?>> handleHttpRequestMethodNotSupported(
+		HttpRequestMethodNotSupportedException e) {
 		log.warn("Method not supported: {}", e.getMessage());
-		ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.BAD_REQUEST);
 		return ResponseEntity.status(ErrorCode.BAD_REQUEST.getStatus())
-				.body(errorResponse);
+			.body(ApiResponse.onFailure(
+				ErrorCode.BAD_REQUEST.getCode(),
+				ErrorCode.BAD_REQUEST.getMessage(),
+				null
+			));
 	}
 
 	/**
@@ -82,24 +96,30 @@ public class GlobalExceptionHandler {
 	 * 주로 잘못된 JSON 형식이나 타입 불일치로 인해 발생
 	 */
 	@ExceptionHandler(HttpMessageNotReadableException.class)
-	protected ResponseEntity<ErrorResponse> handleHttpMessageNotReadable(
-			HttpMessageNotReadableException e) {
+	protected ResponseEntity<ApiResponse<?>> handleHttpMessageNotReadable(
+		HttpMessageNotReadableException e) {
 		log.warn("Message not readable: {}", e.getMessage());
-		ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.INVALID_INPUT);
 		return ResponseEntity.status(ErrorCode.INVALID_INPUT.getStatus())
-				.body(errorResponse);
+			.body(ApiResponse.onFailure(
+				ErrorCode.INVALID_INPUT.getCode(),
+				ErrorCode.INVALID_INPUT.getMessage(),
+				null
+			));
 	}
 
 	/**
 	 * 필수 요청 파라미터가 누락되었을 때 발생하는 예외 처리
 	 */
 	@ExceptionHandler(MissingServletRequestParameterException.class)
-	protected ResponseEntity<ErrorResponse> handleMissingServletRequestParameter(
-			MissingServletRequestParameterException e) {
+	protected ResponseEntity<ApiResponse<?>> handleMissingServletRequestParameter(
+		MissingServletRequestParameterException e) {
 		log.warn("Missing parameter: {}", e.getMessage());
-		ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.INVALID_INPUT);
 		return ResponseEntity.status(ErrorCode.INVALID_INPUT.getStatus())
-				.body(errorResponse);
+			.body(ApiResponse.onFailure(
+				ErrorCode.INVALID_INPUT.getCode(),
+				ErrorCode.INVALID_INPUT.getMessage(),
+				null
+			));
 	}
 
 	/**
@@ -107,11 +127,14 @@ public class GlobalExceptionHandler {
 	 * 예상치 못한 서버 오류를 처리
 	 */
 	@ExceptionHandler(Exception.class)
-	protected ResponseEntity<ErrorResponse> handleException(Exception e) {
+	protected ResponseEntity<ApiResponse<?>> handleException(Exception e) {
 		log.error("Unhandled exception occurred", e);
-		ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.INTERNAL_SERVER_ERROR);
 		return ResponseEntity.status(ErrorCode.INTERNAL_SERVER_ERROR.getStatus())
-				.body(errorResponse);
+			.body(ApiResponse.onFailure(
+				ErrorCode.INTERNAL_SERVER_ERROR.getCode(),
+				ErrorCode.INTERNAL_SERVER_ERROR.getMessage(),
+				null
+			));
 	}
 
 }
