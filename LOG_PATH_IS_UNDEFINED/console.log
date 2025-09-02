@@ -20,7 +20,7 @@ ERROR in ch.qos.logback.core.model.processor.PropertyModelHandler - Could not fi
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:313)
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
-	at com.yourdentity.yourdentity.server.YourdentityServerApplication.main(YourdentityServerApplication.java:10)
+	at server.com.yourdentity.YourdentityServerApplication.main(YourdentityServerApplication.java:10)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
